@@ -1,0 +1,8 @@
+<?php
+
+$MESS['NOVE_TELEGRAM_MODULE_NAME'] = "NoVe: Telegram";
+$MESS['NOVE_TELEGRAM_MODULE_DESCRIPTION'] = "Модуль отправки событий в telegram";
+$MESS['NOVE_TELEGRAM_INSTALL_TITLE'] = "Установка модуля {$MESS['NOVE_TELEGRAM_MODULE_NAME']}";
+$MESS['NOVE_TELEGRAM_UNINSTALL_TITLE'] = "Удаление модуля {$MESS['NOVE_TELEGRAM_MODULE_NAME']}";
+$MESS['NOVE_TELEGRAM_PARTNER_NAME'] = "Nove";
+$MESS['NOVE_TELEGRAM_PARTNER_URI'] = "https://t.me/kuzhak";
