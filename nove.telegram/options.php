@@ -97,18 +97,3 @@ $tabControl->Begin();
     </form>
 <?php
 $tabControl->End();
-
-// // пример получения значения из настроек модуля конкретного поля
-// $op = \Bitrix\Main\Config\Option::get(
-//     // ID модуля, обязательный параметр
-//     "hmarketing.d7",
-//     // имя параметра, обязательный параметр
-//     "hmarketing_multiselectbox",
-//     // возвращается значение по умолчанию, если значение не задано
-//     "",
-//     // ID сайта, если значение параметра различно для разных сайтов
-//     false
-// );
-// // пример получения значения из настроек модуля всех полей
-// $op = \Bitrix\Main\Config\Option::getForModule("hmarketing.d7");
-// остальные команды https://dev.1c-bitrix.ru/api_d7/bitrix/main/config/option/index.php
