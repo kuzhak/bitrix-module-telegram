@@ -1,6 +1,6 @@
 <?php
 
-namespace Nove\Telegram\Domain\Telegram;
+namespace Nove\Telegram\Infrastructure\Telegram;
 
 use Bitrix\Main\Config\Option;
 use Bitrix\Main\Result;
@@ -12,7 +12,6 @@ class TelegramSender
 
     private HttpClient $httpClient;
     private string $token;
-    private string $command = "";
 
     public function __construct()
     {
@@ -30,33 +29,21 @@ class TelegramSender
         $this->token = $token;
     }
 
-    public function getCommand(): string
-    {
-        return $this->command;
-    }
-
-    public function setCommand(string $command): void
-    {
-        $this->command = $command;
-    }
-
     private function prepareUrl(): string
     {
-        return self::URL . $this->getToken() . '/' . $this->getCommand();
+        return self::URL . $this->getToken() . '/sendMessage';
     }
 
-    public function send(string $context) {
-        $result = new Result();
-        $response = $this->httpClient->post(
+    public function send(string $context): bool|string
+    {
+        return $this->httpClient->post(
             $this->prepareUrl(),
             $context
         );
+    }
 
-        if (!$response) {
-            $result->addErrors($this->httpClient->getError());
-            return $result;
-        }
-
-        return $result->setData(json_decode($response));
+    public function getError(): array
+    {
+        return $this->httpClient->getError();
     }
 }

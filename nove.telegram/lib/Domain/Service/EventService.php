@@ -8,10 +8,9 @@ use Nove\Telegram\Domain\Repository;
 
 class EventService implements EventServiceInterface
 {
-    private const PAGE_LIMIT = 10;
-
     public function __construct(
-        protected Repository\EventRepositoryInterface $eventRepository
+        protected Repository\EventRepositoryInterface $eventRepository,
+        protected TelegramServiceInterface $telegramService
     ) {
     }
 
@@ -23,17 +22,23 @@ class EventService implements EventServiceInterface
         $event->setDateCreate($eventDTO->getDateCreate());
         $save = $event->save();
         if (!($save->isSuccess())) {
-            $result->addError($save->getErrors());
+            $result->addErrors($save->getErrors());
+            return $result;
+        }
+
+        $telegramResult = $this->telegramService->sendMessage($eventDTO->getText());
+        if (!$telegramResult->isSuccess()) {
+            $result->addErrors($telegramResult->getErrors());
             return $result;
         }
 
         return $result->setData($event->toArray());
     }
 
-    public function list(): Result
+    public function list(int $limit = 10): Result
     {
         $result = new Result();
-        $data['items'] = $this->eventRepository->list([], static::PAGE_LIMIT);
+        $data['items'] = $this->eventRepository->list([], $limit);
         return $result->setData($data);
     }
 }

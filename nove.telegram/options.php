@@ -33,21 +33,6 @@ $aTabs = [
                     50,
                     100
                 ]
-            ],
-            Loc::getMessage('NOVE_TELEGRAM_SETTINGS_TITLE_EVENTS'),
-            [
-                "events",
-                Loc::getMessage('NOVE_TELEGRAM_SETTINGS_DESC_EVENTS'),
-                false,
-                [
-                    "multiselectbox",
-                    [
-                        "left" => "Лево33333333333333333333",
-                        "right" => "Право",
-                        "top" => "Верх",
-                        "bottom" => "Низ",
-                    ]
-                ]
             ]
         ]
     ],

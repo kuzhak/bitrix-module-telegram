@@ -9,5 +9,5 @@ interface EventServiceInterface
 {
     public function create(EventDTO $eventDTO): Result;
 
-    public function list(): Result;
+    public function list(int $limit = 10): Result;
 }

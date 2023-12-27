@@ -8,7 +8,8 @@ class EventDTO
 {
     public function __construct(
         protected string $typeId,
-        protected DateTime $dateCreate = new DateTime()
+        protected string $text,
+        protected DateTime $dateCreate = new DateTime(),
     ) {
     }
 
@@ -20,5 +21,10 @@ class EventDTO
     public function getDateCreate(): DateTime
     {
         return $this->dateCreate;
+    }
+
+    public function getText(): string
+    {
+        return $this->text;
     }
 }
