@@ -13,14 +13,6 @@ class TelegramService implements TelegramServiceInterface
 
     public function sendMessage(string $text): Result
     {
-        $result = new Result();
-        $response = $this->telegramSender->send($text);
-
-        if (!$response) {
-            $result->addErrors($this->telegramSender->getError());
-            return $result;
-        }
-
-        return $result->setData(json_decode($response));
+        return $this->telegramSender->sendMessage($text);
     }
 }

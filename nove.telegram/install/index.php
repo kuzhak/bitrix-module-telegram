@@ -157,6 +157,9 @@ class nove_telegram extends CModule
                                 . ' '
                                 . $field->getDataType()
                             ;
+                            if ($field->isAutocomplete()) {
+                                $sql .= ' AUTO_INCREMENT';
+                            }
                             if ($field->isRequired()) {
                                 $sql .= ' NOT NULL';
                             }
