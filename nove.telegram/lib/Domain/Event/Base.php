@@ -6,7 +6,7 @@ use Bitrix\Main\Engine\Response\Converter;
 
 abstract class Base implements EventInterface
 {
-    public function getCode(): string
+    public function getTypeId(): string
     {
         $className = substr(strrchr(static::class, '\\'), 1);
         return (new Converter(Converter::TO_SNAKE))->process($className);

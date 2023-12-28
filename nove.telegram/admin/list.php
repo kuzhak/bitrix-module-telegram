@@ -44,6 +44,12 @@ $adminList->AddHeaders([
         "default" => true
     ],
     [
+        "id" => "MESSAGE",
+        "content" => Loc::getMessage('NOVE_ADMIN_RAW_MESSAGE'),
+        "sort" => "MESSAGE",
+        "default" => true
+    ],
+    [
         "id" => "DATE_CREATE",
         "content" => Loc::getMessage('NOVE_ADMIN_RAW_DATE_CREATE'),
         "sort" => "DATE_CREATE",
@@ -55,6 +61,7 @@ while ($dbRes = $result->NavNext()) {
     $row =& $adminList->AddRow($dbRes['ID'], $dbRes);
     $row->AddField("ID", $dbRes['ID']);
     $row->AddField("TYPE_ID", $dbRes['TYPE_ID']);
+    $row->AddField("MESSAGE", $dbRes['MESSAGE']);
     $row->AddField("DATE_CREATE", $dbRes['DATE_CREATE']);
 }
 

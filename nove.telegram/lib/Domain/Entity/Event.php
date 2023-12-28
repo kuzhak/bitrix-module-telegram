@@ -4,11 +4,11 @@ namespace Nove\Telegram\Domain\Entity;
 
 use Nove\Telegram\Domain\Event\EventInterface;
 use Nove\Telegram\Infrastructure\Model;
-use Nove\Telegram\Structure\ORMEntity;
+use Nove\Telegram\Structure\OrmEntity;
 
 class Event extends Model\EO_Event
 {
-    use ORMEntity;
+    use OrmEntity;
 
     protected ?EventInterface $event = null;
 

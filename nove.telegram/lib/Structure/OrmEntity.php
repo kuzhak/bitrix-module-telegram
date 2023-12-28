@@ -4,7 +4,7 @@ namespace Nove\Telegram\Structure;
 
 use Bitrix\Main\Engine\Response\Converter;
 
-trait ORMEntity
+trait OrmEntity
 {
     public function toArray(): array
     {

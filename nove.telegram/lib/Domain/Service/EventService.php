@@ -3,7 +3,7 @@
 namespace Nove\Telegram\Domain\Service;
 
 use Bitrix\Main\Result;
-use Nove\Telegram\Domain\DTO\EventDTO;
+use Nove\Telegram\Domain\Event\EventInterface;
 use Nove\Telegram\Domain\Repository;
 
 class EventService implements EventServiceInterface
@@ -14,19 +14,19 @@ class EventService implements EventServiceInterface
     ) {
     }
 
-    public function create(EventDTO $eventDTO): Result
+    public function create(EventInterface $eventType): Result
     {
         $result = new Result();
         $event  = $this->eventRepository->createObject();
-        $event->setTypeId($eventDTO->getTypeId());
-        $event->setDateCreate($eventDTO->getDateCreate());
+        $event->setTypeId($eventType->getTypeId());
+        $event->setMessage($eventType->getText());
         $save = $event->save();
         if (!($save->isSuccess())) {
             $result->addErrors($save->getErrors());
             return $result;
         }
 
-        $telegramResult = $this->telegramService->sendMessage($eventDTO->getText());
+        $telegramResult = $this->telegramService->sendMessage($eventType->getText());
         if (!$telegramResult->isSuccess()) {
             $result->addErrors($telegramResult->getErrors());
             return $result;

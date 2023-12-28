@@ -42,6 +42,7 @@ class EventRepository implements EventRepositoryInterface
         return $this->get([
             'ID',
             'TYPE_ID',
+            'MESSAGE',
             'DATE_CREATE'
         ], $filter, [
             'DATE_CREATE' => 'DESC'

@@ -8,6 +8,7 @@ use Bitrix\Main\Error;
 use Bitrix\Main\Result;
 use Bitrix\Main\Web\Json;
 use Bitrix\Main\Web\HttpClient;
+use Bitrix\Main\Localization\Loc;
 
 class TelegramSender
 {
@@ -19,10 +20,15 @@ class TelegramSender
 
     private array $chatId = [];
 
+    private ?string $error = null;
+
     public function __construct()
     {
-        $this->token = Option::get('nove.telegram', 'private_key_telegram', '');
         $this->httpClient = new HttpClient();
+        $this->token = Option::get('nove.telegram', 'private_key_telegram', '');
+        if (!$this->token) {
+            $this->setError(Loc::getMessage('NOVE_ERROR_TOKEN'));
+        }
         $this->setChat();
     }
 
@@ -102,6 +108,22 @@ class TelegramSender
             }
             $senders[] = $response;
         }
+
+        if ($error = $this->getError()) {
+            $result->addError(new Error($error));
+            return $result;
+        }
+
         return $result->setData($senders);
+    }
+
+    public function getError(): ?string
+    {
+        return $this->error;
+    }
+
+    public function setError(?string $error): void
+    {
+        $this->error = $error;
     }
 }

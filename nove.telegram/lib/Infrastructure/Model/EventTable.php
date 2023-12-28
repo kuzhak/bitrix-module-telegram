@@ -3,6 +3,7 @@
 namespace Nove\Telegram\Infrastructure\Model;
 
 use Bitrix\Main\ORM;
+use Bitrix\Main\Event;
 use Bitrix\Main\Type\DateTime;
 use Bitrix\Main\Localization\Loc;
 use Nove\Telegram\Domain\Entity as DomainEntity;
@@ -36,11 +37,23 @@ class EventTable extends ORM\Data\DataManager
                 'size' => 100,
                 'title' => Loc::getMessage('NOVE_TYPE_ID')
             ]),
+            new ORM\Fields\TextField('MESSAGE', [
+                'required' => true,
+                'size' => 100,
+                'title' => Loc::getMessage('NOVE_MESSAGE')
+            ]),
             new ORM\Fields\DatetimeField('DATE_CREATE', [
                 'required' => true,
                 'default_value' => new DateTime(),
                 'title' => Loc::getMessage('NOVE_DATE_CREATE')
             ]),
         ];
+    }
+
+    public static function onBeforeUpdate(Event $event): ORM\EventResult
+    {
+        $result = new ORM\EventResult();
+        $result->modifyFields(['DATE_CREATE' => new DateTime()]);
+        return $result;
     }
 }
